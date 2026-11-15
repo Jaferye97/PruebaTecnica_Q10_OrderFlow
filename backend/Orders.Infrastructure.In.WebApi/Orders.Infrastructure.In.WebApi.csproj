@@ -1,3 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
+  <ItemGroup>
+    <ProjectReference Include="..\Orders.Application\Orders.Application.csproj" />
+    <ProjectReference Include="..\Orders.Infrastructure.Out.SqlServer\Orders.Infrastructure.Out.SqlServer.csproj" />
+  </ItemGroup>
 </Project>
