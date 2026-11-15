@@ -7,4 +7,9 @@
     <ProjectReference Include="..\Orders.Application\Orders.Application.csproj" />
     <ProjectReference Include="..\Orders.Domain\Orders.Domain.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <!-- Los tests usan los adaptadores reales (internal) contra SQLite en memoria -->
+    <InternalsVisibleTo Include="Orders.Tests" />
+  </ItemGroup>
 </Project>
