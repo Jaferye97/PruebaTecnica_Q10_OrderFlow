@@ -1,6 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ApiError } from './api/client'
 import { OrderForm } from './features/orders/components/OrderForm'
+import { OrdersTable } from './features/orders/components/OrdersTable'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,6 +23,10 @@ export default function App() {
         <section className="panel" aria-labelledby="form-title">
           <h2 id="form-title">Nuevo pedido</h2>
           <OrderForm />
+        </section>
+        <section className="panel" aria-labelledby="list-title">
+          <h2 id="list-title">Pedidos</h2>
+          <OrdersTable />
         </section>
       </main>
     </QueryClientProvider>
