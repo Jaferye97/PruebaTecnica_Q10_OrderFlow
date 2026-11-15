@@ -1,3 +1,4 @@
+using OrderFlow.Contracts;
 using Orders.Application.Abstractions;
 using Orders.Domain.Common;
 using Orders.Domain.Orders;
@@ -9,6 +10,7 @@ public sealed record CreateOrderCommand(string? NombreCliente, string? Sku, int 
 public sealed class CreateOrderHandler(
     IOrderRepository orders,
     IProductCatalog catalog,
+    IOutbox outbox,
     IUnitOfWork unitOfWork,
     TimeProvider clock)
 {
@@ -28,6 +30,9 @@ public sealed class CreateOrderHandler(
 
         var order = created.Value;
         await orders.AddAsync(order, ct);
+        outbox.Add(new OrderCreated(Guid.CreateVersion7(), order.Id, order.Sku, order.Cantidad, order.CreadoEn));
+
+        // Un solo SaveChanges: el pedido y su evento se guardan juntos o ninguno
         await unitOfWork.SaveChangesAsync(ct);
 
         return Result<OrderDto>.Success(OrderDto.From(order));

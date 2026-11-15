@@ -5,6 +5,9 @@
     <Project Path="Orders.Infrastructure.In.WebApi/Orders.Infrastructure.In.WebApi.csproj" />
 	<Project Path="Orders.Infrastructure.Out.SqlServer/Orders.Infrastructure.Out.SqlServer.csproj" />
   </Folder>
+  <Folder Name="/Shared/">
+    <Project Path="OrderFlow.Contracts/OrderFlow.Contracts.csproj" />
+  </Folder>
   <Folder Name="/tests/">
     <Project Path="Orders.Tests/Orders.Tests.csproj" />
   </Folder>

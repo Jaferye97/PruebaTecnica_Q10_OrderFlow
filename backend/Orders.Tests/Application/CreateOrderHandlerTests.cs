@@ -31,12 +31,12 @@ public sealed class CreateOrderHandlerTests : IDisposable
         new(new DbContextOptionsBuilder<OrdersDbContext>().UseSqlite(_connection).Options);
 
     private static CreateOrderHandler Handler(OrdersDbContext db) =>
-        new(new OrderRepository(db), new ProductCatalog(db), new UnitOfWork(db), new FixedClock(Ahora));
+        new(new OrderRepository(db), new ProductCatalog(db), new Outbox(db), new UnitOfWork(db), new FixedClock(Ahora));
 
     [Theory]
     [InlineData("SKU-001", true)]
     [InlineData("SKU-999", false)]
-    public async Task CreateOrder_SkuValidoOInexistente_GuardaSoloSiEsValido(string sku, bool esValido)
+    public async Task CreateOrder_SkuValidoOInexistente_GuardaPedidoYOutboxSoloSiEsValido(string sku, bool esValido)
     {
         using (var db = NewContext())
         {
@@ -50,16 +50,20 @@ public sealed class CreateOrderHandlerTests : IDisposable
         // Contexto nuevo: se lee lo que quedó en la base, no lo que recuerda el change tracker
         using var verify = NewContext();
         var orders = await verify.Orders.ToListAsync();
+        var outbox = await verify.OutboxMessages.ToListAsync();
 
         if (esValido)
         {
             var order = Assert.Single(orders);
-            Assert.Equal("Ana", order.NombreCliente);
-            Assert.Equal(Ahora, order.CreadoEn);
+            var mensaje = Assert.Single(outbox);
+            Assert.Equal("OrderCreated", mensaje.Type);
+            Assert.Contains(order.Id.ToString(), mensaje.Payload);
+            Assert.Null(mensaje.ProcesadoEn);
         }
         else
         {
             Assert.Empty(orders);
+            Assert.Empty(outbox);
         }
     }
 

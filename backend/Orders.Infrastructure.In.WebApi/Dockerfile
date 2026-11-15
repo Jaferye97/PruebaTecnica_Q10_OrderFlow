@@ -7,12 +7,14 @@ WORKDIR /src
 
 # Primero solo los .csproj: la capa del restore se cachea mientras no cambien las dependencias
 COPY Directory.Build.props ./
+COPY OrderFlow.Contracts/OrderFlow.Contracts.csproj OrderFlow.Contracts/
 COPY Orders.Domain/Orders.Domain.csproj Orders.Domain/
 COPY Orders.Application/Orders.Application.csproj Orders.Application/
 COPY Orders.Infrastructure.Out.SqlServer/Orders.Infrastructure.Out.SqlServer.csproj Orders.Infrastructure.Out.SqlServer/
 COPY Orders.Infrastructure.In.WebApi/Orders.Infrastructure.In.WebApi.csproj Orders.Infrastructure.In.WebApi/
 RUN dotnet restore Orders.Infrastructure.In.WebApi/Orders.Infrastructure.In.WebApi.csproj -a $TARGETARCH
 
+COPY OrderFlow.Contracts/ OrderFlow.Contracts/
 COPY Orders.Domain/ Orders.Domain/
 COPY Orders.Application/ Orders.Application/
 COPY Orders.Infrastructure.Out.SqlServer/ Orders.Infrastructure.Out.SqlServer/

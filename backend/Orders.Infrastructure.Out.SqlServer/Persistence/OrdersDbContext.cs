@@ -8,11 +8,13 @@ public sealed class OrdersDbContext(DbContextOptions<OrdersDbContext> options) :
 {
     public DbSet<Order> Orders => Set<Order>();
     public DbSet<ProductRecord> Products => Set<ProductRecord>();
+    public DbSet<OutboxMessage> OutboxMessages => Set<OutboxMessage>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // Explícito: OrderConfiguration necesita saber el proveedor (SQL Server o SQLite)
+        // Explícito (no ApplyConfigurationsFromAssembly): OrderConfiguration necesita saber el proveedor
         modelBuilder.ApplyConfiguration(new OrderConfiguration(useRowVersion: Database.IsSqlServer()));
         modelBuilder.ApplyConfiguration(new ProductRecordConfiguration());
+        modelBuilder.ApplyConfiguration(new OutboxMessageConfiguration());
     }
 }

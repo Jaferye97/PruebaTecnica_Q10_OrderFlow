@@ -30,6 +30,7 @@ public static class DependencyInjection
         services.AddScoped<IOrderQueries, OrderQueries>();
         services.AddScoped<IProductCatalog, ProductCatalog>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IOutbox, Outbox>();
 
         services.AddHealthChecks()
             .AddDbContextCheck<OrdersDbContext>(name: "sqlserver", tags: [ReadyTag]);
