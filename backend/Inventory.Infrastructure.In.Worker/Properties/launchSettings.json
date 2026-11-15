@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "Inventory.Infrastructure.In.Worker": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development",
+        "RabbitMq__Host": "127.0.0.1",
+        "RabbitMq__Port": "5672"
+      }
+    }
+  }
+}

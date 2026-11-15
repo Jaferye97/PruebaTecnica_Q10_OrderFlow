@@ -64,7 +64,7 @@ services:
       - -f
       - "65001"
       - -i
-      - /scripts/01-orders.sql
+      - /scripts/01-orders.sql,/scripts/02-inventory.sql
     depends_on:
       sqlserver:
         condition: service_healthy
@@ -83,6 +83,15 @@ services:
     ports:
       - "8080:8080"
     depends_on: *backend-depends
+
+  inventory-worker:
+    build:
+      context: ./backend
+      dockerfile: Inventory.Infrastructure.In.Worker/Dockerfile
+    environment:
+      <<: *rabbitmq-env
+      ConnectionStrings__InventoryDb: "Server=sqlserver,1433;Database=InventoryDb;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=True"
+    depends_on: *backend-depends   # db-init terminado + rabbitmq healthy
 
   # SPA servida por nginx (no-root, 8080). nginx reenvía /api/ a orders-api por la red interna.
   frontend:

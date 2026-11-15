@@ -1,0 +1,24 @@
+using Inventory.Application.Abstractions;
+using Inventory.Application.Common;
+using Inventory.Infrastructure.Out.SqlServer.Persistence;
+using Microsoft.EntityFrameworkCore;
+
+namespace Inventory.Infrastructure.Out.SqlServer.Adapters;
+
+internal sealed class UnitOfWork(InventoryDbContext db) : IUnitOfWork
+{
+    public async Task SaveChangesAsync(CancellationToken ct)
+    {
+        try
+        {
+            await db.SaveChangesAsync(ct);
+        }
+        catch (DbUpdateException ex) // incluye DbUpdateConcurrencyException
+        {
+            // Se descartan los cambios pendientes: el reintento empieza con el contexto limpio
+            db.ChangeTracker.Clear();
+            throw new PersistenceConflictException(
+                "No se pudieron guardar los cambios por un conflicto (concurrencia o clave duplicada).", ex);
+        }
+    }
+}

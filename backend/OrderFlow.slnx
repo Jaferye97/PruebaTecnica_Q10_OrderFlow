@@ -6,6 +6,13 @@
     <Project Path="Orders.Infrastructure.Out.RabbitMq/Orders.Infrastructure.Out.RabbitMq.csproj" />
 	<Project Path="Orders.Infrastructure.Out.SqlServer/Orders.Infrastructure.Out.SqlServer.csproj" />
   </Folder>
+  <Folder Name="/Inventory/">
+    <Project Path="Inventory.Application/Inventory.Application.csproj" />
+    <Project Path="Inventory.Domain/Inventory.Domain.csproj" />
+    <Project Path="Inventory.Infrastructure.In.Worker/Inventory.Infrastructure.In.Worker.csproj" />
+    <Project Path="Inventory.Infrastructure.Out.RabbitMq/Inventory.Infrastructure.Out.RabbitMq.csproj" />
+    <Project Path="Inventory.Infrastructure.Out.SqlServer/Inventory.Infrastructure.Out.SqlServer.csproj" />
+  </Folder>
   <Folder Name="/Shared/">
     <Project Path="OrderFlow.Contracts/OrderFlow.Contracts.csproj" />
   </Folder>

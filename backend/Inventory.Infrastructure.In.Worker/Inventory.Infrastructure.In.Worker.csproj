@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.15" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Inventory.Application\Inventory.Application.csproj" />
+    <ProjectReference Include="..\Inventory.Infrastructure.Out.SqlServer\Inventory.Infrastructure.Out.SqlServer.csproj" />
+    <ProjectReference Include="..\Inventory.Infrastructure.Out.RabbitMq\Inventory.Infrastructure.Out.RabbitMq.csproj" />
+  </ItemGroup>
+</Project>
