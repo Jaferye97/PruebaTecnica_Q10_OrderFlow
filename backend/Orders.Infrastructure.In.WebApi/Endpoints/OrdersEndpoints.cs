@@ -9,14 +9,27 @@ public sealed record CreateOrderRequest(string? NombreCliente, string? Sku, int 
 
 public static class OrdersEndpoints
 {
+    private const int DefaultTake = 50;
+
     public static IEndpointRouteBuilder MapOrdersEndpoints(this IEndpointRouteBuilder app)
     {
         var group = app.MapGroup("/api/orders").WithTags("Orders");
 
+        group.MapGet("/", GetOrders).WithName("GetOrders");
         group.MapGet("/{id:guid}", GetOrderById).WithName("GetOrderById");
         group.MapPost("/", CreateOrder).WithName("CreateOrder");
 
         return app;
+    }
+
+    private static async Task<Results<Ok<IReadOnlyList<OrderDto>>, ValidationProblem>> GetOrders(
+        GetOrdersHandler handler, CancellationToken ct, int take = DefaultTake)
+    {
+        var result = await handler.HandleAsync(new GetOrdersQuery(take), ct);
+
+        return result.IsSuccess
+            ? TypedResults.Ok(result.Value)
+            : ErrorResults.Validation(result.Errors);
     }
 
     private static async Task<Results<Ok<OrderDto>, ProblemHttpResult>> GetOrderById(

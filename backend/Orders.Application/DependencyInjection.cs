@@ -11,6 +11,7 @@ public static class DependencyInjection
     {
         services.AddScoped<CreateOrderHandler>();
         services.AddScoped<GetOrderByIdHandler>();
+        services.AddScoped<GetOrdersHandler>();
         services.AddScoped<GetProductsHandler>();
         // TimeProvider lo registra la WebApi (AddSingleton(TimeProvider.System))
         return services;

@@ -21,6 +21,14 @@ internal sealed class OrderQueries(OrdersDbContext db) : IOrderQueries
             o.DetalleRechazo,
             o.CreadoEn);
 
+    public async Task<IReadOnlyList<OrderDto>> GetAsync(int take, CancellationToken ct) =>
+        await db.Orders
+            .AsNoTracking()
+            .OrderByDescending(o => o.CreadoEn)
+            .Take(take)
+            .Select(ToDto)
+            .ToListAsync(ct);
+
     public async Task<OrderDto?> GetByIdAsync(Guid id, CancellationToken ct) =>
         await db.Orders
             .AsNoTracking()
