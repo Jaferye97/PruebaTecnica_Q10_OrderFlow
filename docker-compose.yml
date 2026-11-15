@@ -1,9 +1,13 @@
+# `docker compose up` levanta todo: SQL Server → db-init (esquema + datos de prueba) → API.
+# SA_PASSWORD se toma del .env; si no existe, se usa el valor por defecto (solo desarrollo).
+x-sa-password: &sa-password '${SA_PASSWORD:-YourStrong!Passw0rd}'
+
 services:
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
       ACCEPT_EULA: 'Y'
-      MSSQL_SA_PASSWORD: '${SA_PASSWORD:?Define SA_PASSWORD en el .env}'
+      MSSQL_SA_PASSWORD: *sa-password
     ports:
       - '1433:1433'
     volumes:
@@ -17,6 +21,48 @@ services:
       interval: 10s
       timeout: 5s
       retries: 10
+      start_period: 20s
+
+  # Ejecuta el script una vez y termina. Es idempotente: se puede repetir en cada `up`.
+  db-init:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      SQLCMDPASSWORD: *sa-password
+    volumes:
+      - ./db/init:/scripts:ro
+    # -I: QUOTED_IDENTIFIER ON · -b: sale con error si falla un batch · -f 65001: scripts en UTF-8
+    entrypoint:
+      - /opt/mssql-tools18/bin/sqlcmd
+      - -S
+      - sqlserver,1433
+      - -U
+      - sa
+      - -C
+      - -I
+      - -b
+      - -f
+      - '65001'
+      - -i
+      - /scripts/01-orders.sql
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    restart: 'no'
+
+  orders-api:
+    build:
+      context: ./backend
+      dockerfile: Orders.Infrastructure.In.WebApi/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__OrdersDb: 'Server=sqlserver,1433;Database=OrdersDb;User Id=sa;Password=${SA_PASSWORD:-YourStrong!Passw0rd};TrustServerCertificate=True'
+    ports:
+      - '5179:8080'
+    depends_on:
+      # La API arranca solo cuando el esquema y los datos de prueba ya están cargados
+      db-init:
+        condition: service_completed_successfully
+    restart: unless-stopped
 
 volumes:
   sqlserver-data:
