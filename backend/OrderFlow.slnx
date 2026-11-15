@@ -17,6 +17,7 @@
     <Project Path="OrderFlow.Contracts/OrderFlow.Contracts.csproj" />
   </Folder>
   <Folder Name="/tests/">
+    <Project Path="Inventory.Tests/Inventory.Tests.csproj" />
     <Project Path="Orders.Tests/Orders.Tests.csproj" />
   </Folder>
 </Solution>
