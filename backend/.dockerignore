@@ -1,5 +1,11 @@
 **/bin/
 **/obj/
 **/.vs/
+**/.vscode/
 **/*.user
+**/Properties/launchSettings.json
+**/*.http
 **/Dockerfile
+.dockerignore
+.config/
+dotnet-tools.json
