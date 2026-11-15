@@ -69,6 +69,21 @@ public class OrderTests
         Assert.Equal(Order.DetalleRechazoMaxLength, order.DetalleRechazo!.Length); // cabe en nvarchar(200)
     }
 
+    [Theory]
+    [InlineData(-1, false)]
+    [InlineData(0, false)]
+    [InlineData(Order.CantidadMinima, true)]   // 1: límite inferior incluido
+    [InlineData(Order.CantidadMaxima, true)]   // 100: límite superior incluido
+    [InlineData(Order.CantidadMaxima + 1, false)]
+    public void Create_CantidadDebeEstarEntre1y100(int cantidad, bool esValida)
+    {
+        var result = Order.Create("Ana", "SKU-1", cantidad, Ahora);
+
+        Assert.Equal(esValida, result.IsSuccess);
+        if (!esValida)
+            Assert.Equal("order.cantidad_invalida", Assert.Single(result.Errors).Code);
+    }
+
     [Fact]
     public void Create_NombreVacioYCantidadCero_AcumulaDosErrores()
     {

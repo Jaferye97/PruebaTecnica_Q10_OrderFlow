@@ -6,6 +6,10 @@ public sealed class Order
 {
     public const int DetalleRechazoMaxLength = 200;
 
+    // Rango de cantidad por pedido (requisito del negocio). El frontend replica estos límites.
+    public const int CantidadMinima = 1;
+    public const int CantidadMaxima = 100;
+
     public Guid Id { get; private set; }
     public string NombreCliente { get; private set; } = null!;
     public string Sku { get; private set; } = null!;
@@ -41,7 +45,7 @@ public sealed class Order
         if (string.IsNullOrEmpty(skuNorm))
             errors.Add(OrderErrors.SkuRequerido);
 
-        if (cantidad <= 0)
+        if (cantidad is < CantidadMinima or > CantidadMaxima)
             errors.Add(OrderErrors.CantidadInvalida);
 
         if (errors.Count > 0)

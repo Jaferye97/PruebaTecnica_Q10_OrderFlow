@@ -12,7 +12,9 @@ export type FieldErrors = Partial<Record<OrderField, string>>
 
 export const ORDER_FIELDS: readonly OrderField[] = ['nombreCliente', 'sku', 'cantidad']
 
-const INT32_MAX = 2_147_483_647 // Cantidad es int en el backend
+// ⚠️ Igual que Order.CantidadMinima / Order.CantidadMaxima en el dominio
+export const CANTIDAD_MIN = 1
+export const CANTIDAD_MAX = 100
 
 export function validateOrder(values: OrderFormValues): FieldErrors {
   const errors: FieldErrors = {}
@@ -22,9 +24,13 @@ export function validateOrder(values: OrderFormValues): FieldErrors {
   if (values.sku.trim() === '') errors.sku = 'El SKU es obligatorio.'
 
   const cantidad = Number(values.cantidad)
-  if (values.cantidad.trim() === '' || !Number.isInteger(cantidad) || cantidad <= 0)
-    errors.cantidad = 'La cantidad debe ser mayor que 0.'
-  else if (cantidad > INT32_MAX) errors.cantidad = `La cantidad no puede superar ${INT32_MAX}.`
+  if (
+    values.cantidad.trim() === '' ||
+    !Number.isInteger(cantidad) ||
+    cantidad < CANTIDAD_MIN ||
+    cantidad > CANTIDAD_MAX
+  )
+    errors.cantidad = `La cantidad debe estar entre ${CANTIDAD_MIN} y ${CANTIDAD_MAX}.`
 
   return errors
 }

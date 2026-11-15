@@ -13,7 +13,8 @@ public static class OrderErrors
         new("order.sku_requerido", "sku", "El SKU es obligatorio.");
 
     public static Error CantidadInvalida =>
-        new("order.cantidad_invalida", "cantidad", "La cantidad debe ser mayor que 0.");
+        new("order.cantidad_invalida", "cantidad",
+            $"La cantidad debe estar entre {Order.CantidadMinima} y {Order.CantidadMaxima}.");
 
     public static Error MotivoInvalido =>
         new("order.motivo_invalido", "motivoRechazo", "El motivo de rechazo no es válido.");

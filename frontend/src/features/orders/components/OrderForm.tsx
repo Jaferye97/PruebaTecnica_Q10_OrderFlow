@@ -2,7 +2,7 @@ import { useEffect, useState, type ChangeEvent, type FormEvent } from 'react'
 import { ApiError } from '../../../api/client'
 import { useCreateOrder } from '../hooks/useCreateOrder'
 import { useProducts } from '../hooks/useProducts'
-import { ORDER_FIELDS, validateOrder, type FieldErrors, type OrderField, type OrderFormValues } from '../validation'
+import { CANTIDAD_MAX, CANTIDAD_MIN, ORDER_FIELDS, validateOrder, type FieldErrors, type OrderField, type OrderFormValues } from '../validation'
 
 const EMPTY: OrderFormValues = { nombreCliente: '', sku: '', cantidad: '1' }
 
@@ -151,7 +151,7 @@ export function OrderForm() {
 
       <div className="field">
         <label htmlFor="cantidad">Cantidad</label>
-        <input type="number" inputMode="numeric" min={1} step={1} {...fieldProps('cantidad')} />
+        <input type="number" inputMode="numeric" min={CANTIDAD_MIN} max={CANTIDAD_MAX} step={1} {...fieldProps('cantidad')} />
         {fieldError('cantidad')}
       </div>
 
