@@ -12,6 +12,8 @@ public static class DependencyInjection
     {
         // Comandos
         services.AddScoped<CreateOrderHandler>();
+        services.AddScoped<ConfirmOrderHandler>();
+        services.AddScoped<RejectOrderHandler>();
 
         // Queries
         services.AddScoped<GetOrdersHandler>();

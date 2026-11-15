@@ -24,6 +24,9 @@ builder.Services.AddOptions<OutboxOptions>()
     .ValidateOnStart();
 builder.Services.AddHostedService<OutboxRelayService>();
 
+// Consumidor de orders.stock-results (respuestas de Inventory)
+builder.Services.AddHostedService<StockResultsConsumer>();
+
 builder.Services.ConfigureHttpJsonOptions(options =>
     options.SerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
