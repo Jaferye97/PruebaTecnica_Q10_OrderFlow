@@ -99,6 +99,32 @@ button:disabled { cursor: not-allowed; opacity: 0.6; }
 .banner--warning { background: var(--warning-bg); color: var(--warning); }
 
 .table-wrap { overflow-x: auto; }
+
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+.pagination__controls { display: flex; flex-wrap: wrap; gap: 0.25rem; }
+.pagination__controls button {
+  min-width: 2.25rem;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--panel);
+  color: var(--text);
+  font-size: 0.85rem;
+}
+.pagination__controls button:hover:not(:disabled) { border-color: var(--primary); }
+.pagination__controls button[aria-current="page"] {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+  font-weight: 600;
+}
 table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
 th, td { text-align: left; padding: 0.5rem 0.625rem; border-bottom: 1px solid var(--border); vertical-align: top; }
 th { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.03em; color: var(--muted); }
