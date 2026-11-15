@@ -22,6 +22,7 @@ public static class DependencyInjection
                 $"Defínela en la variable de entorno 'ConnectionStrings__{ConnectionStringName}' " +
                 "(en Docker se pasa desde el .env vía docker-compose).");
 
+        // AddDbContext registra el contexto como Scoped
         services.AddDbContext<OrdersDbContext>(options =>
             options.UseSqlServer(connectionString, sql => sql.EnableRetryOnFailure()));
 
@@ -31,6 +32,7 @@ public static class DependencyInjection
         services.AddScoped<IProductCatalog, ProductCatalog>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IOutbox, Outbox>();
+        services.AddScoped<IOutboxReader, OutboxReader>();
 
         services.AddHealthChecks()
             .AddDbContextCheck<OrdersDbContext>(name: "sqlserver", tags: [ReadyTag]);

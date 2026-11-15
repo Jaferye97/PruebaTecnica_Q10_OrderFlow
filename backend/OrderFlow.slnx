@@ -3,6 +3,7 @@
     <Project Path="Orders.Application/Orders.Application.csproj" />
     <Project Path="Orders.Domain/Orders.Domain.csproj" />
     <Project Path="Orders.Infrastructure.In.WebApi/Orders.Infrastructure.In.WebApi.csproj" />
+    <Project Path="Orders.Infrastructure.Out.RabbitMq/Orders.Infrastructure.Out.RabbitMq.csproj" />
 	<Project Path="Orders.Infrastructure.Out.SqlServer/Orders.Infrastructure.Out.SqlServer.csproj" />
   </Folder>
   <Folder Name="/Shared/">

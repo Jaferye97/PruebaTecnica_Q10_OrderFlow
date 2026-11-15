@@ -16,6 +16,7 @@
     <ProjectReference Include="..\Orders.Domain\Orders.Domain.csproj" />
     <ProjectReference Include="..\Orders.Application\Orders.Application.csproj" />
     <ProjectReference Include="..\Orders.Infrastructure.Out.SqlServer\Orders.Infrastructure.Out.SqlServer.csproj" />
+    <ProjectReference Include="..\Orders.Infrastructure.Out.RabbitMq\Orders.Infrastructure.Out.RabbitMq.csproj" />
   </ItemGroup>
 
   <ItemGroup>

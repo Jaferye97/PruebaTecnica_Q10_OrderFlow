@@ -1,4 +1,16 @@
 # Los secretos salen del .env de la raíz.
+x-rabbitmq-env: &rabbitmq-env
+  RabbitMq__Host: rabbitmq
+  RabbitMq__Port: "5672"
+  RabbitMq__User: "${RABBITMQ_USER:?Define RABBITMQ_USER en el .env}"
+  RabbitMq__Password: "${RABBITMQ_PASSWORD:?Define RABBITMQ_PASSWORD en el .env}"
+
+x-backend-depends: &backend-depends
+  db-init:
+    condition: service_completed_successfully
+  rabbitmq:
+    condition: service_healthy
+
 services:
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
@@ -11,6 +23,22 @@ services:
       - sqlserver-data:/var/opt/mssql
     healthcheck:
       test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P \"$${MSSQL_SA_PASSWORD}\" -C -Q \"SELECT 1\" || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  rabbitmq:
+    image: rabbitmq:4-management
+    environment:
+      RABBITMQ_DEFAULT_USER: "${RABBITMQ_USER:?Define RABBITMQ_USER en el .env}"
+      RABBITMQ_DEFAULT_PASS: "${RABBITMQ_PASSWORD:?Define RABBITMQ_PASSWORD en el .env}"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
       interval: 10s
       timeout: 5s
       retries: 10
@@ -48,14 +76,13 @@ services:
       context: ./backend
       dockerfile: Orders.Infrastructure.In.WebApi/Dockerfile
     environment:
+      <<: *rabbitmq-env
       # Server=sqlserver: dentro de la red de Docker cada servicio se encuentra por su nombre
       ConnectionStrings__OrdersDb: "Server=sqlserver,1433;Database=OrdersDb;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=True"
       OpenApi__Enabled: "true" # Scalar en http://localhost:8080/scalar
     ports:
       - "8080:8080"
-    depends_on:
-      db-init:
-        condition: service_completed_successfully
+    depends_on: *backend-depends
 
   # SPA servida por nginx (no-root, 8080). nginx reenvía /api/ a orders-api por la red interna.
   frontend:
@@ -68,3 +95,4 @@ services:
 
 volumes:
   sqlserver-data:
+  rabbitmq-data:

@@ -3,6 +3,7 @@
     <ProjectReference Include="..\Orders.Application\Orders.Application.csproj" />
     <ProjectReference Include="..\Orders.Infrastructure.Out.SqlServer\Orders.Infrastructure.Out.SqlServer.csproj" />
     <ProjectReference Include="..\OrderFlow.Contracts\OrderFlow.Contracts.csproj" />
+    <ProjectReference Include="..\Orders.Infrastructure.Out.RabbitMq\Orders.Infrastructure.Out.RabbitMq.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.15" />
