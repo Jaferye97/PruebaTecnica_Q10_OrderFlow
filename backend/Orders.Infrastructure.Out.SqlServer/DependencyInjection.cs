@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Orders.Application.Abstractions;
+using Orders.Infrastructure.Out.SqlServer.Adapters;
 using Orders.Infrastructure.Out.SqlServer.Persistence;
 
 namespace Orders.Infrastructure.Out.SqlServer;
@@ -22,6 +24,12 @@ public static class DependencyInjection
 
         services.AddDbContext<OrdersDbContext>(options =>
             options.UseSqlServer(connectionString, sql => sql.EnableRetryOnFailure()));
+
+        // Adaptadores de los puertos: Scoped, igual que el DbContext que comparten
+        services.AddScoped<IOrderRepository, OrderRepository>();
+        services.AddScoped<IOrderQueries, OrderQueries>();
+        services.AddScoped<IProductCatalog, ProductCatalog>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         services.AddHealthChecks()
             .AddDbContextCheck<OrdersDbContext>(name: "sqlserver", tags: [ReadyTag]);

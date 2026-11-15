@@ -1,0 +1,110 @@
+@host = http://localhost:5109
+
+### ─── Health ───────────────────────────────────────────
+
+### Live: 200 siempre que el proceso responda
+GET {{host}}/health/live
+
+### Ready: 200 si SQL Server responde, 503 si no
+GET {{host}}/health/ready
+
+### ─── Productos ────────────────────────────────────────
+
+### Catálogo (SKU-001 … SKU-004)
+GET {{host}}/api/products
+Accept: application/json
+
+### ─── Crear pedido ─────────────────────────────────────
+
+### 201 + Location: pedido válido
+# @name crear
+POST {{host}}/api/orders
+Content-Type: application/json
+
+{
+  "nombreCliente": "Ana Pérez",
+  "sku": "SKU-001",
+  "cantidad": 2
+}
+
+### 201: los espacios se recortan ("  SKU-002  " → "SKU-002")
+POST {{host}}/api/orders
+Content-Type: application/json
+
+{
+  "nombreCliente": "  Luis  ",
+  "sku": "  SKU-002  ",
+  "cantidad": 1
+}
+
+### 400: SKU que no existe en el catálogo (order.sku_no_existe)
+POST {{host}}/api/orders
+Content-Type: application/json
+
+{
+  "nombreCliente": "Ana",
+  "sku": "SKU-999",
+  "cantidad": 1
+}
+
+### 400: varios errores a la vez (nombre_requerido, sku_requerido, cantidad_invalida)
+POST {{host}}/api/orders
+Content-Type: application/json
+
+{
+  "nombreCliente": "   ",
+  "sku": "",
+  "cantidad": 0
+}
+
+### 400: cuerpo vacío / campos ausentes
+POST {{host}}/api/orders
+Content-Type: application/json
+
+{}
+
+### 400 (BadHttpRequestException): tipo incorrecto en cantidad
+POST {{host}}/api/orders
+Content-Type: application/json
+
+{
+  "nombreCliente": "Ana",
+  "sku": "SKU-001",
+  "cantidad": "dos"
+}
+
+### 400 (BadHttpRequestException): JSON mal formado
+POST {{host}}/api/orders
+Content-Type: application/json
+
+{ "nombreCliente": "Ana",
+
+### ─── Consultar pedidos ────────────────────────────────
+
+### 200: listado por defecto (50 más recientes)
+GET {{host}}/api/orders
+Accept: application/json
+
+### 200: take dentro del rango
+GET {{host}}/api/orders?take=5
+
+### 400: take fuera de rango (order.take_fuera_de_rango)
+GET {{host}}/api/orders?take=0
+
+### 400: take fuera de rango por arriba (límite exacto: 201)
+GET {{host}}/api/orders?take=201
+
+### 400: take fuera de rango por arriba
+GET {{host}}/api/orders?take=500
+
+### 400 (BadHttpRequestException): take no numérico
+GET {{host}}/api/orders?take=abc
+
+### 200: detalle del pedido creado arriba (ejecuta antes "crear")
+GET {{host}}/api/orders/{{crear.response.body.$.id}}
+
+### 404: Guid válido que no existe (order.no_encontrado)
+GET {{host}}/api/orders/00000000-0000-0000-0000-000000000001
+
+### 404: no es un Guid, la restricción {id:guid} no coincide
+GET {{host}}/api/orders/no-es-un-guid

@@ -1,4 +1,3 @@
-docker compose down -v# Contexto de build: ./backend (ver docker-compose.yml)
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 

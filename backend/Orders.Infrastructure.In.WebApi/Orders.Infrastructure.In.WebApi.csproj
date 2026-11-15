@@ -3,4 +3,8 @@
     <ProjectReference Include="..\Orders.Application\Orders.Application.csproj" />
     <ProjectReference Include="..\Orders.Infrastructure.Out.SqlServer\Orders.Infrastructure.Out.SqlServer.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.15" />
+    <PackageReference Include="Scalar.AspNetCore" Version="2.21.0" />
+  </ItemGroup>
 </Project>
