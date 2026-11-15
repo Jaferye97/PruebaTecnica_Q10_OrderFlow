@@ -83,7 +83,9 @@ FROM (VALUES
 WHERE NOT EXISTS (SELECT 1 FROM dbo.Products p WHERE p.Sku = v.Sku);
 GO
 
--- Pedidos de ejemplo en los tres estados. Ids fijos para que el script sea idempotente.
+-- Pedidos de ejemplo ya resueltos (Confirmed y Rejected). Ids fijos para que el script sea idempotente.
+-- No hay ninguno Pending: un Pending necesitaría su OrderCreated en OutboxMessages para que Inventory
+-- lo procese; sin él se quedaría Pending para siempre (y el panel nunca bajaría el polling a 15 s).
 INSERT INTO dbo.Orders (Id, NombreCliente, Sku, Cantidad, Estado, MotivoRechazo, DetalleRechazo, CreadoEn)
 SELECT v.Id, v.NombreCliente, v.Sku, v.Cantidad, v.Estado, v.MotivoRechazo, v.DetalleRechazo,
        DATEADD(MINUTE, -v.MinutosAtras, SYSDATETIMEOFFSET())
@@ -92,8 +94,8 @@ FROM (VALUES
     ('0193a000-0000-7000-8000-000000000002', N'Carlos Pérez',   N'SKU-002', 1, N'Confirmed', NULL,                 NULL,                                         240),
     ('0193a000-0000-7000-8000-000000000003', N'Laura Martínez', N'SKU-003', 5, N'Rejected',  N'InsufficientStock', N'Stock disponible: 2, solicitado: 5.',     180),
     ('0193a000-0000-7000-8000-000000000004', N'Jorge Ramírez',  N'SKU-004', 1, N'Rejected',  N'InsufficientStock', N'Producto agotado.',                        120),
-    ('0193a000-0000-7000-8000-000000000005', N'Sofía Torres',   N'SKU-001', 3, N'Pending',   NULL,                 NULL,                                          60),
-    ('0193a000-0000-7000-8000-000000000006', N'Diego Herrera',  N'SKU-002', 4, N'Pending',   NULL,                 NULL,                                          10)
+    ('0193a000-0000-7000-8000-000000000005', N'Sofía Torres',   N'SKU-001', 3, N'Confirmed', NULL,                 NULL,                                          60),
+    ('0193a000-0000-7000-8000-000000000006', N'Diego Herrera',  N'SKU-002', 4, N'Confirmed', NULL,                 NULL,                                          10)
 ) AS v (Id, NombreCliente, Sku, Cantidad, Estado, MotivoRechazo, DetalleRechazo, MinutosAtras)
 WHERE NOT EXISTS (SELECT 1 FROM dbo.Orders o WHERE o.Id = v.Id);
 GO
