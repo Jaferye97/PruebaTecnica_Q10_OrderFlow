@@ -1,9 +1,11 @@
-# Los secretos salen del .env de la raíz.
+# Los secretos salen del .env de la raíz. Si no existe, se usan los mismos valores de ejemplo
+# que .env.example (${VAR:-defecto}): así "docker compose up" funciona recién clonado.
+# Son valores SOLO para desarrollo local; en cualquier otro entorno defínelos en el .env.
 x-rabbitmq-env: &rabbitmq-env
   RabbitMq__Host: rabbitmq
   RabbitMq__Port: "5672"
-  RabbitMq__User: "${RABBITMQ_USER:?Define RABBITMQ_USER en el .env}"
-  RabbitMq__Password: "${RABBITMQ_PASSWORD:?Define RABBITMQ_PASSWORD en el .env}"
+  RabbitMq__User: "${RABBITMQ_USER:-guest_user}"
+  RabbitMq__Password: "${RABBITMQ_PASSWORD:-change_me}"
 
 x-backend-depends: &backend-depends
   db-init:
@@ -16,7 +18,7 @@ services:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
       ACCEPT_EULA: "Y"
-      MSSQL_SA_PASSWORD: "${SA_PASSWORD:?Define SA_PASSWORD en el .env}"
+      MSSQL_SA_PASSWORD: "${SA_PASSWORD:-YourStrong!Passw0rd}"
     ports:
       - "1433:1433"
     volumes:
@@ -30,8 +32,8 @@ services:
   rabbitmq:
     image: rabbitmq:4-management
     environment:
-      RABBITMQ_DEFAULT_USER: "${RABBITMQ_USER:?Define RABBITMQ_USER en el .env}"
-      RABBITMQ_DEFAULT_PASS: "${RABBITMQ_PASSWORD:?Define RABBITMQ_PASSWORD en el .env}"
+      RABBITMQ_DEFAULT_USER: "${RABBITMQ_USER:-guest_user}"
+      RABBITMQ_DEFAULT_PASS: "${RABBITMQ_PASSWORD:-change_me}"
     ports:
       - "5672:5672"
       - "15672:15672"
@@ -48,7 +50,7 @@ services:
   db-init:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
-      SQLCMDPASSWORD: "${SA_PASSWORD:?Define SA_PASSWORD en el .env}"
+      SQLCMDPASSWORD: "${SA_PASSWORD:-YourStrong!Passw0rd}"
     volumes:
       - ./db/init:/scripts:ro
     # -I: QUOTED_IDENTIFIER ON · -b: sale con error si falla un batch · -f 65001: scripts en UTF-8
@@ -78,7 +80,7 @@ services:
     environment:
       <<: *rabbitmq-env
       # Server=sqlserver: dentro de la red de Docker cada servicio se encuentra por su nombre
-      ConnectionStrings__OrdersDb: "Server=sqlserver,1433;Database=OrdersDb;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=True"
+      ConnectionStrings__OrdersDb: "Server=sqlserver,1433;Database=OrdersDb;User Id=sa;Password=${SA_PASSWORD:-YourStrong!Passw0rd};TrustServerCertificate=True"
       OpenApi__Enabled: "true" # Scalar en http://localhost:8080/scalar
     ports:
       - "8080:8080"
@@ -90,7 +92,7 @@ services:
       dockerfile: Inventory.Infrastructure.In.Worker/Dockerfile
     environment:
       <<: *rabbitmq-env
-      ConnectionStrings__InventoryDb: "Server=sqlserver,1433;Database=InventoryDb;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=True"
+      ConnectionStrings__InventoryDb: "Server=sqlserver,1433;Database=InventoryDb;User Id=sa;Password=${SA_PASSWORD:-YourStrong!Passw0rd};TrustServerCertificate=True"
     depends_on: *backend-depends   # db-init terminado + rabbitmq healthy
 
   # SPA servida por nginx (no-root, 8080). nginx reenvía /api/ a orders-api por la red interna.
