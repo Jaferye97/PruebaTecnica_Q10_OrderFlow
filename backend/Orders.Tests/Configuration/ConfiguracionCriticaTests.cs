@@ -1,11 +1,8 @@
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Orders.Domain.Orders;
 using Orders.Infrastructure.Out.SqlServer;
-using Orders.Infrastructure.Out.SqlServer.Persistence;
 
 namespace Orders.Tests.Configuration;
 

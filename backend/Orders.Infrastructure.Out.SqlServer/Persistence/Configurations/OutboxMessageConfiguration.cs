@@ -1,6 +1,3 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
 namespace Orders.Infrastructure.Out.SqlServer.Persistence.Configurations;
 
 internal sealed class OutboxMessageConfiguration : IEntityTypeConfiguration<OutboxMessage>

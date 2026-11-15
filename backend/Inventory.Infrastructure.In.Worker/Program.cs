@@ -1,6 +1,5 @@
 using Inventory.Application;
 using Inventory.Infrastructure.In.Worker.Messaging;
-using Inventory.Infrastructure.Out.RabbitMq;
 using Inventory.Infrastructure.Out.SqlServer;
 
 var builder = Host.CreateApplicationBuilder(args);

@@ -1,6 +1,3 @@
-using Microsoft.AspNetCore.Http.HttpResults;
-using Orders.Domain.Common;
-
 namespace Orders.Infrastructure.In.WebApi.Endpoints;
 
 /// <summary>Traduce los Error del dominio a respuestas ProblemDetails.</summary>

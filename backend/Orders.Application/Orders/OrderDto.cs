@@ -1,6 +1,4 @@
-﻿using Orders.Domain.Orders;
-
-namespace Orders.Application.Orders;
+﻿namespace Orders.Application.Orders;
 
 public sealed record OrderDto(
     Guid Id,

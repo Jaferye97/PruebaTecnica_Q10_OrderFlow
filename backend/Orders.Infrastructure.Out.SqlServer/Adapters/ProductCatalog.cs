@@ -1,7 +1,4 @@
-using Microsoft.EntityFrameworkCore;
-using Orders.Application.Abstractions;
 using Orders.Application.Products;
-using Orders.Infrastructure.Out.SqlServer.Persistence;
 
 namespace Orders.Infrastructure.Out.SqlServer.Adapters;
 

@@ -1,6 +1,4 @@
-﻿using Orders.Domain.Orders;
-
-namespace Orders.Application.Abstractions;
+﻿namespace Orders.Application.Abstractions;
 
 public interface IOrderRepository
 {

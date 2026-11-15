@@ -1,7 +1,3 @@
-using Orders.Application.Abstractions;
-using Orders.Domain.Orders;
-using Orders.Infrastructure.Out.SqlServer.Persistence;
-
 namespace Orders.Infrastructure.Out.SqlServer.Adapters;
 
 internal sealed class OrderRepository(OrdersDbContext db) : IOrderRepository

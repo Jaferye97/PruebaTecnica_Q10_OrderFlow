@@ -1,8 +1,4 @@
-﻿using Orders.Application.Abstractions;
-using Orders.Domain.Common;
-using Orders.Domain.Orders;
-
-namespace Orders.Application.Orders.Commands;
+﻿namespace Orders.Application.Orders.Commands;
 
 public sealed record RejectOrderCommand(Guid OrderId, string? Motivo, string? Detalle);
 

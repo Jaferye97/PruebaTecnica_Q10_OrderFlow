@@ -1,8 +1,3 @@
-using Microsoft.EntityFrameworkCore;
-using Orders.Application.Abstractions;
-using Orders.Infrastructure.Out.SqlServer.Persistence;
-using Orders.Infrastructure.Out.SqlServer.Persistence.Configurations;
-
 namespace Orders.Infrastructure.Out.SqlServer.Adapters;
 
 internal sealed class OutboxReader(OrdersDbContext db) : IOutboxReader

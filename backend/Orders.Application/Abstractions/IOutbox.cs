@@ -1,5 +1,3 @@
-using OrderFlow.Contracts;
-
 namespace Orders.Application.Abstractions;
 
 /// <summary>

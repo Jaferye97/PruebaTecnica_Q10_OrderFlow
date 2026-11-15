@@ -1,8 +1,3 @@
-using OrderFlow.Contracts;
-using Orders.Application.Abstractions;
-using Orders.Domain.Common;
-using Orders.Domain.Orders;
-
 namespace Orders.Application.Orders.Commands;
 
 public sealed record CreateOrderCommand(string? NombreCliente, string? Sku, int Cantidad);

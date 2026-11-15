@@ -1,5 +1,3 @@
-using Inventory.Domain.Stocks;
-
 namespace Inventory.Tests.Domain;
 
 public class StockTests

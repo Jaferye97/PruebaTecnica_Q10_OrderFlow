@@ -1,7 +1,3 @@
-using Inventory.Application.Abstractions;
-using Inventory.Domain.Stocks;
-using Inventory.Infrastructure.Out.SqlServer.Persistence;
-
 namespace Inventory.Infrastructure.Out.SqlServer.Adapters;
 
 internal sealed class StockRepository(InventoryDbContext db) : IStockRepository

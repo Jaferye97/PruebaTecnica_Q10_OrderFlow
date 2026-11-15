@@ -1,5 +1,3 @@
-using Inventory.Application.Idempotency;
-
 namespace Inventory.Application.Abstractions;
 
 /// <summary>Registro de eventos ya procesados (idempotencia del consumidor).</summary>

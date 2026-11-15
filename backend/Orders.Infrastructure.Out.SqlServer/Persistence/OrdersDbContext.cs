@@ -1,8 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Orders.Domain.Orders;
-using Orders.Infrastructure.Out.SqlServer.Persistence.Configurations;
-
-namespace Orders.Infrastructure.Out.SqlServer.Persistence;
+﻿namespace Orders.Infrastructure.Out.SqlServer.Persistence;
 
 public sealed class OrdersDbContext(DbContextOptions<OrdersDbContext> options) : DbContext(options)
 {

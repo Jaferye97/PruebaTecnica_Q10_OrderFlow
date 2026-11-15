@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Http.HttpResults;
 using Orders.Application.Products;
 using Orders.Application.Products.Queries;
 

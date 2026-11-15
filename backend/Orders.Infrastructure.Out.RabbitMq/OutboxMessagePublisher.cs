@@ -1,5 +1,4 @@
 using System.Text.Json;
-using Orders.Application.Abstractions;
 
 namespace Orders.Infrastructure.Out.RabbitMq;
 

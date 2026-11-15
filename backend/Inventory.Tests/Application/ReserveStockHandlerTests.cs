@@ -1,9 +1,4 @@
-using Inventory.Application.Abstractions;
 using Inventory.Application.Common;
-using OrderFlow.Contracts;
-using Inventory.Application.Idempotency;
-using Inventory.Application.Stocks;
-using Inventory.Domain.Stocks;
 
 namespace Inventory.Tests.Application;
 

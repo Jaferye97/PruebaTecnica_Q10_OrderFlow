@@ -1,7 +1,4 @@
-﻿using Orders.Application.Abstractions;
-using Orders.Domain.Common;
-
-namespace Orders.Application.Products.Queries;
+﻿namespace Orders.Application.Products.Queries;
 
 public sealed record GetProductsQuery;
 

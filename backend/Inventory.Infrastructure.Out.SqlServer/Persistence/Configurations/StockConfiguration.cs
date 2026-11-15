@@ -1,7 +1,3 @@
-using Inventory.Domain.Stocks;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
 namespace Inventory.Infrastructure.Out.SqlServer.Persistence.Configurations;
 
 internal sealed class StockConfiguration(bool useRowVersion) : IEntityTypeConfiguration<Stock>

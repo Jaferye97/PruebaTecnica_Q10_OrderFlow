@@ -1,7 +1,4 @@
-using Inventory.Application.Idempotency;
-using Inventory.Domain.Stocks;
 using Inventory.Infrastructure.Out.SqlServer.Persistence.Configurations;
-using Microsoft.EntityFrameworkCore;
 
 namespace Inventory.Infrastructure.Out.SqlServer.Persistence;
 

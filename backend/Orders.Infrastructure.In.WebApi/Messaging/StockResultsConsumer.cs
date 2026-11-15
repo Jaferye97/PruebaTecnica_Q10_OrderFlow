@@ -1,11 +1,5 @@
-using System.Text.Json;
 using OrderFlow.Contracts;
-using Orders.Application.Orders;
-using Orders.Application.Orders.Commands;
-using Orders.Domain.Common;
 using Orders.Domain.Orders;
-using Orders.Infrastructure.Out.RabbitMq;
-using RabbitMQ.Client.Events;
 using Topology = OrderFlow.Contracts.Messaging;
 
 namespace Orders.Infrastructure.In.WebApi.Messaging;

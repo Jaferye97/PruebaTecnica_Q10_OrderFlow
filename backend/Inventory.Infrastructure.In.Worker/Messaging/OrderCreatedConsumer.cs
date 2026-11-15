@@ -1,9 +1,6 @@
-using System.Text.Json;
 using Inventory.Application.Stocks;
-using Inventory.Infrastructure.Out.RabbitMq;
 using OrderFlow.Contracts;
 using Topology = OrderFlow.Contracts.Messaging;
-using RabbitMQ.Client.Events;
 
 namespace Inventory.Infrastructure.In.Worker.Messaging;
 

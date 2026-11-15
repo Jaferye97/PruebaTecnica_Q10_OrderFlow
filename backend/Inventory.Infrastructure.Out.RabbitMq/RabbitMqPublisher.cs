@@ -1,6 +1,4 @@
 using System.Text;
-using OrderFlow.Contracts;
-using RabbitMQ.Client;
 
 namespace Inventory.Infrastructure.Out.RabbitMq;
 

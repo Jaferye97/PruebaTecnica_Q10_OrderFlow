@@ -1,7 +1,4 @@
-using Inventory.Application.Abstractions;
 using Inventory.Infrastructure.Out.SqlServer.Adapters;
-using Inventory.Infrastructure.Out.SqlServer.Persistence;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

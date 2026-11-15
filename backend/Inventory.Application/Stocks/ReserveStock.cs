@@ -1,7 +1,4 @@
 using Inventory.Application.Abstractions;
-using Inventory.Application.Idempotency;
-using Inventory.Domain.Stocks;
-using OrderFlow.Contracts;
 
 namespace Inventory.Application.Stocks;
 

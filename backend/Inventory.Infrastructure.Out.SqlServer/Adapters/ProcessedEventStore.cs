@@ -1,8 +1,3 @@
-using Inventory.Application.Abstractions;
-using Inventory.Application.Idempotency;
-using Inventory.Infrastructure.Out.SqlServer.Persistence;
-using Microsoft.EntityFrameworkCore;
-
 namespace Inventory.Infrastructure.Out.SqlServer.Adapters;
 
 internal sealed class ProcessedEventStore(InventoryDbContext db) : IProcessedEventStore

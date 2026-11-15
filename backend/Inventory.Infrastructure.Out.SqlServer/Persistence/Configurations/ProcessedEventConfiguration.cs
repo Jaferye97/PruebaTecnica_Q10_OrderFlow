@@ -1,7 +1,3 @@
-using Inventory.Application.Idempotency;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
 namespace Inventory.Infrastructure.Out.SqlServer.Persistence.Configurations;
 
 internal sealed class ProcessedEventConfiguration : IEntityTypeConfiguration<ProcessedEvent>

@@ -1,7 +1,3 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Orders.Domain.Orders;
-
 namespace Orders.Infrastructure.Out.SqlServer.Persistence.Configurations;
 
 internal sealed class OrderConfiguration(bool useRowVersion) : IEntityTypeConfiguration<Order>

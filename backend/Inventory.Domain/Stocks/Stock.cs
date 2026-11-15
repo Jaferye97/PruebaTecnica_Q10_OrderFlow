@@ -1,5 +1,3 @@
-using Inventory.Domain.Common;
-
 namespace Inventory.Domain.Stocks;
 
 public sealed class Stock

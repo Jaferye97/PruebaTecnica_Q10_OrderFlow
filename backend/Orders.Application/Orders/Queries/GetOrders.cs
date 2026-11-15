@@ -1,7 +1,3 @@
-using Orders.Application.Abstractions;
-using Orders.Domain.Common;
-using Orders.Domain.Orders;
-
 namespace Orders.Application.Orders.Queries;
 
 public sealed record GetOrdersQuery(int Take);

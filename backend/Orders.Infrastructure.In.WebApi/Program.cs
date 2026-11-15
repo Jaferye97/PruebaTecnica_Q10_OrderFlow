@@ -3,7 +3,6 @@ using Orders.Application;
 using Orders.Infrastructure.In.WebApi.Endpoints;
 using Orders.Infrastructure.In.WebApi.ErrorHandling;
 using Orders.Infrastructure.In.WebApi.Messaging;
-using Orders.Infrastructure.Out.RabbitMq;
 using Orders.Infrastructure.Out.SqlServer;
 using Scalar.AspNetCore;
 using System.Text.Json.Serialization;

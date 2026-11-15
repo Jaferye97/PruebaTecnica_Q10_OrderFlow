@@ -1,9 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Orders.Application.Abstractions;
 using Orders.Infrastructure.Out.SqlServer.Adapters;
-using Orders.Infrastructure.Out.SqlServer.Persistence;
 
 namespace Orders.Infrastructure.Out.SqlServer;
 

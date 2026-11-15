@@ -1,6 +1,5 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Orders.Application.Abstractions;
 
 namespace Orders.Infrastructure.Out.RabbitMq;
 

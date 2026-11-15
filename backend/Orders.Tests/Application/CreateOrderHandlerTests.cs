@@ -1,8 +1,6 @@
 using Microsoft.Data.Sqlite;
-using Microsoft.EntityFrameworkCore;
 using Orders.Application.Orders.Commands;
 using Orders.Infrastructure.Out.SqlServer.Adapters;
-using Orders.Infrastructure.Out.SqlServer.Persistence;
 
 namespace Orders.Tests.Application;
 

@@ -1,7 +1,5 @@
 using System.Text.Json;
 using OrderFlow.Contracts;
-using Orders.Application.Abstractions;
-using Orders.Infrastructure.Out.SqlServer.Persistence;
 
 namespace Orders.Infrastructure.Out.SqlServer.Adapters;
 

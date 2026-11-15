@@ -1,5 +1,3 @@
-using Orders.Domain.Orders;
-
 namespace Orders.Tests.Domain;
 
 public class OrderTests

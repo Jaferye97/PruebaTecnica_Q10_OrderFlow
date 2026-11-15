@@ -1,6 +1,3 @@
-using OrderFlow.Contracts;
-using RabbitMQ.Client;
-
 namespace Orders.Infrastructure.Out.RabbitMq;
 
 /// <summary>

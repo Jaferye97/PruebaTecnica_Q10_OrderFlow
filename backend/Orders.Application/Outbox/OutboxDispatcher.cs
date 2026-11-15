@@ -1,5 +1,3 @@
-using Orders.Application.Abstractions;
-
 namespace Orders.Application.Outbox;
 
 public sealed record OutboxDispatchResult(int Leidos, int Publicados, Exception? Error);

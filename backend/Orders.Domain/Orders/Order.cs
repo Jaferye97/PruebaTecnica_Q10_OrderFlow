@@ -1,6 +1,4 @@
-﻿using Orders.Domain.Common;
-
-namespace Orders.Domain.Orders;
+﻿namespace Orders.Domain.Orders;
 
 public sealed class Order
 {

@@ -1,11 +1,7 @@
-using Inventory.Application.Abstractions;
-using Inventory.Application.Idempotency;
-using Inventory.Application.Stocks;
 using Inventory.Infrastructure.Out.SqlServer.Adapters;
 using Inventory.Infrastructure.Out.SqlServer.Persistence;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
-using OrderFlow.Contracts;
 
 namespace Inventory.Tests.Application;
 

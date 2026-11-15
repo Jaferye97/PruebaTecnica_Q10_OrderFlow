@@ -1,8 +1,5 @@
-using System.Text.Json;
 using Orders.Application.Common;
-using Orders.Infrastructure.Out.RabbitMq;
 using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
 
 namespace Orders.Infrastructure.In.WebApi.Messaging;
 

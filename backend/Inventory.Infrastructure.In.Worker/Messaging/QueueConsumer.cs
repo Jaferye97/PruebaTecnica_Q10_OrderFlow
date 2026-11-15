@@ -1,8 +1,5 @@
-using System.Text.Json;
 using Inventory.Application.Common;
-using Inventory.Infrastructure.Out.RabbitMq;
 using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
 
 namespace Inventory.Infrastructure.In.Worker.Messaging;
 

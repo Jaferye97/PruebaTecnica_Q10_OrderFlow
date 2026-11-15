@@ -1,6 +1,3 @@
-using Microsoft.AspNetCore.Http.HttpResults;
-using Orders.Application.Orders;
-using Orders.Application.Orders.Commands;
 using Orders.Application.Orders.Queries;
 
 namespace Orders.Infrastructure.In.WebApi.Endpoints;

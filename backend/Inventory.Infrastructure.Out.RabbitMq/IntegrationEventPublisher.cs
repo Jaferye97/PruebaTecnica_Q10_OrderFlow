@@ -1,6 +1,4 @@
 using System.Text.Json;
-using Inventory.Application.Abstractions;
-using OrderFlow.Contracts;
 
 namespace Inventory.Infrastructure.Out.RabbitMq;
 
